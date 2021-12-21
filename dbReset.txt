@@ -1,0 +1,33 @@
+DROP TABLE IF EXISTS playlist4_users CASCADE;
+DROP TABLE IF EXISTS playlist4_playlists CASCADE;
+DROP TABLE IF EXISTS playlist4_songs;
+
+CREATE TABLE playlist4_users (
+    EMAIL TEXT NOT NULL PRIMARY KEY,
+   	FIRST_NAME TEXT NOT NULL,
+    LAST_NAME TEXT NOT NULL,
+   	PASSWORD TEXT NOT NULL
+);
+
+INSERT INTO playlist4_users (EMAIL, FIRST_NAME, LAST_NAME, PASSWORD) VALUES ('markus.heckner@gmail.com', 'Markus', 'Heckner', 'test');
+
+
+CREATE TABLE playlist4_playlists (
+	ID SERIAL PRIMARY KEY,
+	TITLE VARCHAR,
+	USER_ID TEXT REFERENCES playlist4_users ON DELETE CASCADE
+);
+
+INSERT INTO playlist4_playlists (TITLE, USER_ID) VALUES ('Happy Mood', 'markus.heckner@gmail.com');
+
+CREATE TABLE playlist4_songs (
+  ID SERIAL PRIMARY KEY,
+  TITLE VARCHAR,
+  ARTIST VARCHAR,
+  DURATION INTEGER,
+  PLAYLIST_ID INTEGER REFERENCES playlist4_playlists ON DELETE CASCADE
+);
+
+INSERT INTO playlist4_songs (TITLE, ARTIST, DURATION, PLAYLIST_ID) VALUES ('Valerie', 'Amy Winehouse', 90, 1);
+INSERT INTO playlist4_songs (TITLE, ARTIST, DURATION, PLAYLIST_ID) VALUES ('22', 'Taylor Swift', 180, 1);
+INSERT INTO playlist4_songs (TITLE, ARTIST, DURATION, PLAYLIST_ID) VALUES ('Happy', 'Pharrell Williams', 120, 1);

@@ -1,0 +1,17 @@
+<form action="/playlist/{{playlist.id}}/addsong" method="POST">
+    <div class="row">
+        <div class="mb-3 col-4">
+            <label htmlFor="inputTitle" className="form-label">Title</label>
+            <input placeholder="Title" type="text" className="form-control" id="inputTitle" name="title">
+        </div>
+        <div class="mb-3 col-4">
+            <label htmlFor="inputArtist" className="form-label">Artist</label>
+            <input placeholder="Artist" type="text" className="form-control" id="inputArtist" name="artist">
+        </div>
+        <div class="mb-3 col-4">
+            <label htmlFor="inputDuration" className="form-label">Duration</label>
+            <input placeholder="00" type="number" className="form-control" id="inputDuration" name="duration">
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Song</button>
+</form>
