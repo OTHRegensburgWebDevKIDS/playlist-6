@@ -1,6 +1,7 @@
 const logger = require('../utils/logger');
 const playlistStore = require('../models/playlist-store.js');
 const songStore = require('../models/song-store.js');
+const playlistAnalytics = require("../utils/playlist-analytics.js");
 
 const playlist = {
     async index(request, response) {
@@ -8,21 +9,13 @@ const playlist = {
         const playlist = await playlistStore.getPlaylist(playlistId);
         const songs = await songStore.getSongsForPlayList(playlistId);
         logger.info('Playlist id = ' + playlistId);
-
-        let shortestSong = null;
-        if (songs.length > 0) {
-            shortestSong = songs[0];
-            for (let i = 1; i < songs.length; i++) {
-                if (songs[i].duration < shortestSong.duration) {
-                    shortestSong = songs[i];
-                }
-            }
-        }
+        let shortestSong = playlistAnalytics.getShortestSong(songs);
         logger.info('Shortest song: ',  shortestSong);
         const viewData = {
             title: 'Playlist',
             playlist: playlist,
-            songs: songs
+            songs: songs,
+            shortestSong: shortestSong
         };
         response.render('playlist', viewData);
     },
