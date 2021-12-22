@@ -1,13 +1,15 @@
-const { createLogger, format, transports } = require("winston");
-const { combine, timestamp, label, prettyPrint } = format;
+const winston = require("winston");
 
-const logger = createLogger({
-  format: combine(
-      label({ label: "Web app template" }),
-      //      timestamp(),
-      prettyPrint()
-  ),
-  transports: [new transports.Console()]
-});
-
+const logger = winston.createLogger({
+      level: 'info',
+      format: winston.format.combine(
+          winston.format.label({ label: "Playlist 6" }),
+          // winston.format.timestamp(),
+          winston.format.prettyPrint()
+      ),
+      transports: [
+        new winston.transports.Console(),
+      ],
+    }
+);
 module.exports = logger;
