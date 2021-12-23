@@ -4,7 +4,7 @@ const logger = require("../utils/logger.js");
 
 const playlistStore = {
   async getPlaylist(id) {
-    const query = 'SELECT * FROM playlist4_playlists WHERE id=$1';
+    const query = 'SELECT * FROM playlist_playlists WHERE id=$1';
     const values = [id];
     try {
       let result = await dataStoreClient.query(query, values);
@@ -14,7 +14,7 @@ const playlistStore = {
     }
   },
   async getAllPlaylists() {
-    const query = 'SELECT * FROM playlist4_playlists';
+    const query = 'SELECT * FROM playlist_playlists';
     try {
       let result = await dataStoreClient.query(query);
       return result.rows;
@@ -23,7 +23,7 @@ const playlistStore = {
     }
   },
   async getUserPlaylists(email) {
-    const query = 'SELECT * FROM playlist4_playlists WHERE user_id=$1';
+    const query = 'SELECT * FROM playlist_playlists WHERE user_id=$1';
     const values = [email];
     try {
       let result = await dataStoreClient.query(query, values);
@@ -33,7 +33,7 @@ const playlistStore = {
     }
   },
   async removePlaylist(id) {
-    const query = 'DELETE FROM playlist4_playlists WHERE id=$1';
+    const query = 'DELETE FROM playlist_playlists WHERE id=$1';
     const values = [id];
     try {
       await dataStoreClient.query(query, values);
@@ -43,7 +43,7 @@ const playlistStore = {
   },
   async addPlaylist(playList) {
     try {
-      const query = 'INSERT INTO playlist4_playlists (TITLE, USER_ID) VALUES($1, $2)';
+      const query = 'INSERT INTO playlist_playlists (TITLE, USER_ID) VALUES($1, $2)';
       const values = [playList.title, playList.userid];
       await dataStoreClient.query(query, values);
     } catch (e) {

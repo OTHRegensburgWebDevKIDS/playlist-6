@@ -4,7 +4,7 @@ const logger = require("../utils/logger.js");
 
 const userStore = {
     async addUser(user) {
-        const query = 'INSERT INTO playlist4_users (email, password, first_name, last_name) VALUES($1, $2, $3, $4)';
+        const query = 'INSERT INTO playlist_users (email, password, first_name, last_name) VALUES($1, $2, $3, $4)';
         const values = [user.email, user.password, user.firstName, user.lastName];
         try {
             await dataStoreClient.query(query, values);
@@ -13,7 +13,7 @@ const userStore = {
         }
     },
     async authenticateUser(email, password) {
-        const query = 'SELECT * FROM playlist4_users WHERE email=$1 AND password=$2';
+        const query = 'SELECT * FROM playlist_users WHERE email=$1 AND password=$2';
         const values = [email, password];
         try {
             let dbRes = await dataStoreClient.query(query, values);
@@ -28,7 +28,7 @@ const userStore = {
     },
     async getUserById(id) {
         logger.info(`Getting user ${id}`);
-        const query = 'SELECT * FROM playlist4_users WHERE email=$1';
+        const query = 'SELECT * FROM playlist_users WHERE email=$1';
         const values = [id];
         try {
             let dbRes = await dataStoreClient.query(query, values);
